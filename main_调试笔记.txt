@@ -1,0 +1,16 @@
+2020/5/17
+1 offline_test.py似乎是训练模型的py文件
+2 main.py是训练模型的文件
+    - 下载预训练模型,然后在jester训练集中进行训练
+    - 增加参数 n_finetune_classes
+    - 对应的参数文件是offline_train.txt
+        - 其中no_train no_val参数若在输入参数中则就是true
+3 ValueError: num_samples should be a positive integer value, but got num_samples=0
+    - 原因是没有数据集
+    - 下载jester的数据集后需要解决以下问题
+        - 使用什么预训练模型？？
+        - 如何产生nogesture_gesture的label
+            - https://github.com/ahmetgunduz/Real-time-GesRec/issues/51 作者的issue :  detector就是个二分类模型，需要将n_class = 1
+            - https://github.com/ahmetgunduz/Real-time-GesRec/issues/55 仿写utils上的ego/nv的代码，产生jester的label
+                - utils下的jester_json.py能够依据txt文件产生，json文件
+                - 需要自己编写jes_prepare.py产生binary的txt文件

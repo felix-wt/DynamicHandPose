@@ -1,0 +1,27 @@
+1 要将video_path  改成cv2.videocapture()
+2 训练3D-CNN
+	或者从亚马逊云下载
+	数据集中jester是RGB图像，其他是深度图像，但是jester数据集中并未给出no_gesture的label所以作者并没有训练出jester的detector
+3 这个代码的demo并不是video.mp4所以演示的
+
+2020/5/17
+1 20bn的数据库有nogesture训练集，可以重新训练detector https://20bn.com/datasets/jester
+2 RuntimeError: Error(s) in loading state_dict for DataParallel:
+	size mismatch for module.conv1.weight: copying a param with shape torch.Size([16, 1, 7, 7, 7])
+	from checkpoint, the shape in current model is torch.Size([16, 3, 3, 7, 7]).
+
+	发布一个issue，询问为么，原因是模型结构和已经训练好的模型不匹配
+	    这个error 的原因是在bash file 中modality的设置与pretrained model并不匹配
+3 RuntimeError: Error(s) in loading state_dict for DataParallel:
+	size mismatch for module.fc.weight: copying a param with shape torch.Size([25, 2048]) from checkpoint, the shape in current model is torch.Size([85, 2048]).
+	size mismatch for module.fc.bias: copying a param with shape torch.Size([25]) from checkpoint, the shape in current model is torch.Size([85]).
+
+	原因是 bash file 中n_class的设置与pretrained model并不匹配
+
+4 Traceback (most recent call last):
+  File "F:/working_task/hand_recognize/Real-time-GesRec-master/online_test.py", line 185, in <module>
+    for path in test_paths[4:]:
+  NameError: name 'test_paths' is not defined
+
+  语音是当dataset输入为jester时，test_paths为空
+
